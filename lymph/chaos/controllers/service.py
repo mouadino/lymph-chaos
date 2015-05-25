@@ -7,6 +7,10 @@ import six
 from gevent import subprocess
 
 from lymph.core.interfaces import Proxy
+from lymph.utils.logging import setup_logger
+
+
+LOGGER = setup_logger(__name__)
 
 
 class ServiceController(object):
@@ -18,9 +22,10 @@ class ServiceController(object):
         return self._proxy.list_services()
 
     def kill(self, service_name):
-        self._proxy.get_processes(service_name)
-        for proc in processes:
-            subprocess.call(['kill', '-9', str(proc['pid'])])
+        pids = self._proxy.get_processes(service_name)
+        for pid in pids:
+            LOGGER.info('killing processe %s', pid)
+            subprocess.call(['kill', '-9', str(pid)])
 
 
 @six.add_metaclass(abc.ABCMeta)

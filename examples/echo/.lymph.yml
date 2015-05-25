@@ -17,7 +17,10 @@ event_system:
 
 instances:
     echo:
-        command: lymph instance --interface echo:Echo
+        command: lymph instance --interface echo:Echo --reload
+
+    demo:
+        command: lymph instance --interface demo:Client --reload
 
     chaos:
-        command: lymph instance --interface lymph.chaos.interfaces:Chaos
+        command: lymph instance --interface lymph.chaos.interfaces:Chaos --reload

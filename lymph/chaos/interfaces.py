@@ -26,5 +26,7 @@ class Chaos(lymph.Interface):
         self.service.kill(name)
 
     @lymph.rpc()
-    def inject_latency(self, latency=1):
-        self.network.inject_latency(latency)
+    def inject_latency(self, name, latency=1, period=3):
+        # TODO: How to deal with CommandError !?
+        # TODO: We are ignoring for now `name` !
+        self.network.inject_latency(latency, period)

@@ -1,10 +1,9 @@
-from lymph.chaos.scenarios import Scenario
+from lymph.chaos.scenario import Scenario
 
 sn = Scenario.from_zookeeper_host('zookeeper')
 
 sn.kill('echo')
-# TODO: How to control which instance/machine to inject latency into !?
-sn.inject_latency(1)
+sn.inject_latency('demo', 1)
 
-with sn.play(interval=1):
+with sn.repeat(interval=5):
     time.sleep(60)

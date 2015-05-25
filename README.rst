@@ -22,7 +22,7 @@ Usage
 
 Install lymph-chaos by running ::
 
-    pip install git@github.com:mouadino/lymph-chaos.git
+    pip install git+https://github.com/mouadino/lymph-chaos.git
 
 In you node configuration e.g. ``.lymph.yml`` just add a service ``chaos``
 as an instance ::
@@ -40,17 +40,14 @@ Controlling lymph-chaos from code ::
     sn = Scenario.from_zookeeper_host('127.0.0.1')
 
     sn.kill('echo')
+    sn.inject_latency('demo', 1)
 
-    sn.inject_latency(1)
-
-    with sn.play(interval=1):
+    with sn.repeat(interval=5):
         # Here you can put what you want to test while chaos monkey
         # is destroying services.
         import time
         time.sleep(30)
 
-
-Need more examples, check the examples/ folder.
 
 Supported commands:
 -------------------
@@ -73,11 +70,28 @@ like packet corruption ... .
 
 It goes without saying that this only work on linux machines.
 
+Demo
+----
+
+If you have docker and docker-compose installed, you can play with the included
+example in this repository.
+
+Start by running the example services ::
+
+    $ docker-compose up
+
+You can scale up the number of services if you want to see more interesting results ::
+
+    $ docker-compose scale node=3
+
+
 TODO
 ----
 
-- dry run.
-- Auto discovery: It will be good if monkey agent can run standalone and discover services automagically.
+- add cli to run lymph-chaos from e.g. lymph chaos --dry-run --unleash --no-network-control
+- dry run behavior.
+- nicer scenario API.
+- Auto discovery: It will be good if chaos agent can run standalone and discover services automagically.
 - Killing any process (e.g. what happen when we lose one db node)
 - filling disk, cpu burnout (only do it inside docker)
   https://github.com/Netflix/SimianArmy/tree/master/src/main/resources/scripts.

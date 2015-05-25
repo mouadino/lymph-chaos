@@ -1,0 +1,16 @@
+zookeeper:
+    image: jplock/zookeeper
+
+rabbitmq:
+    image: rabbitmq:3.4.4
+
+node:
+  restart: always
+  cap_add:
+    - NET_ADMIN  # We need the privilege to control networking.
+  links:
+      - zookeeper
+      - rabbitmq
+  build: .
+  volumes:
+      - .:/lymph-chaos

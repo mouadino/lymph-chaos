@@ -18,9 +18,4 @@ setup(
     install_requires=[
         'lymph>=0.1.0',
     ],
-    entry_points={
-        'lymph.cli': [
-            'scenario = lymph.chaos.cli.scenario:ScenarioCommand'
-        ],
-    },
 )

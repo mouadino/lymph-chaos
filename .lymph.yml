@@ -12,9 +12,12 @@ event_system:
 dependencies:
     kazoo:
         class: kazoo.client:KazooClient
-        hosts: zk
-
+        hosts: zookeeper
 
 instances:
     monkey:
-        command: lymph instance --config=conf/monkey.yml --reload
+        command: lymph instance --interface lymph.chaos.interfaces:Chaos --reload
+    echo:
+        command: lymph instance --interface echo:Echo --reload
+    demo:
+        command: lymph instance --interface demo:Client --reload

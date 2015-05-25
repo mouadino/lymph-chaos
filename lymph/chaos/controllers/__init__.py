@@ -1,2 +1,2 @@
 from .network import NetworkController
-from .service import ServiceController
+from .service import ServiceController, LymphNodeProxy

@@ -1,13 +1,16 @@
 FROM ubuntu
 
-ADD . /repo
+ADD examples /services
+ADD . /lymph-chaos
 
-WORKDIR repo/
+WORKDIR lymph-chaos/
 
 RUN apt-get update
 RUN apt-get install --yes python-pip git-core python-dev
 
 RUN pip install git+https://github.com/mouadino/lymph@chaos#egg=lymph
-RUN pip install git+https://github.com/mouadino/lymph-chaos@master#egg=lymph-chaos
+RUN pip install /lymph-chaos
+
+ENV PYTHONPATH=/services
 
 CMD lymph node --guess-external-ip
