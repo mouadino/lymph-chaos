@@ -1,0 +1,17 @@
+zookeeper:
+    image: jplock/zookeeper
+
+rabbitmq:
+    image: rabbitmq:3.4.4
+
+echo:
+  links:
+      - zookeeper
+      - rabbitmq
+  build: echo/
+
+demo:
+  links:
+      - zookeeper
+      - rabbitmq
+  build: demo/

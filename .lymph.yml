@@ -1,0 +1,20 @@
+registry:
+    class: lymph.discovery.zookeeper:ZookeeperServiceRegistry
+    zkclient: dep:kazoo
+
+
+event_system:
+    class: lymph.events.kombu:KombuEventSystem
+    transport: amqp
+    hostname: rabbitmq
+
+
+dependencies:
+    kazoo:
+        class: kazoo.client:KazooClient
+        hosts: zk
+
+
+instances:
+    monkey:
+        command: lymph instance --config=conf/monkey.yml --reload

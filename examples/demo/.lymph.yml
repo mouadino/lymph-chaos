@@ -1,0 +1,23 @@
+dependencies:
+    kazoo:
+        class: kazoo.client:KazooClient
+        hosts: zookeeper:2181
+
+container:
+    registry:
+        class: lymph.discovery.zookeeper:ZookeeperServiceRegistry
+        zkclient: dep:kazoo
+
+
+event_system:
+    class: lymph.events.kombu:KombuEventSystem
+    transport: amqp
+    hostname: rabbitmq
+
+
+instances:
+    demo:
+        command: lymph instance --interface demo.Client
+
+    chaos:
+        command: lymph instance --interface lymph.chaos.interfaces:Chaos
